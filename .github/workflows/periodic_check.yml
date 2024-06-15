@@ -22,6 +22,13 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:gha
 
+      - name: Copy known_hosts
+        run: |
+          set -eux
+
+          [ ! -d ~/.ssh ] && mkdir -p ~/.ssh
+          cp .known_hosts ~/.ssh/known_hosts
+
       - name: Make script executable
         run: chmod +x check.sh
 
