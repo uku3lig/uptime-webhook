@@ -12,7 +12,7 @@ fi
 DOWN=()
 
 for machine in "${MACHINES[@]}"; do
-    if ssh "$machine" 'exit'; then
+    if ssh "root@$machine" 'exit'; then
         echo "Connection to $machine is OK"
     else
         echo "Connection to $machine is NOT OK"
