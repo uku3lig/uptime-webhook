@@ -21,6 +21,7 @@ jobs:
           oauth-client-id: ${{ secrets.TS_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:gha
+          version: 1.70.0
 
       - name: Copy known_hosts
         run: |
