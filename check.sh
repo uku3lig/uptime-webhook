@@ -14,7 +14,7 @@ fi
 DOWN=()
 
 for machine in "${MACHINES[@]}"; do
-    if ssh "$USER@$machine" 'exit'; then
+    if ssh -o ConnectTimeout=5 "$USER@$machine" 'exit'; then
         echo "Connection to $machine is OK"
     else
         echo "Connection to $machine is NOT OK"
