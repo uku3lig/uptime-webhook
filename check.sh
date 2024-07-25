@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+USER="leo"
+DISCORD_ID="319463560356823050"
 MACHINES=("etna" "vesuvio")
 
 if [ -z "$WEBHOOK_URL" ]; then
@@ -12,7 +14,7 @@ fi
 DOWN=()
 
 for machine in "${MACHINES[@]}"; do
-    if ssh "root@$machine" 'exit'; then
+    if ssh "$USER@$machine" 'exit'; then
         echo "Connection to $machine is OK"
     else
         echo "Connection to $machine is NOT OK"
@@ -28,7 +30,7 @@ readarray -t LAST_DOWN < <(jq -r '. | sort_by(.time)[-1].down[]' status.json)
 
 if ((${#DOWN[@]})) && [ "${DOWN[*]}" != "${LAST_DOWN[*]}" ]; then
     echo "Sending notification"
-    curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"<@319463560356823050> machines are down: ${DOWN[*]}\"}" "$WEBHOOK_URL"
+    curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"<@$DISCORD_ID> machines are down: ${DOWN[*]}\"}" "$WEBHOOK_URL"
 fi
 
 mv status.json.tmp status.json
