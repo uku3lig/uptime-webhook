@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-USER="leo"
 DISCORD_ID="319463560356823050"
 MACHINES=("etna" "vesuvio")
 
@@ -14,7 +13,7 @@ fi
 DOWN=()
 
 for machine in "${MACHINES[@]}"; do
-    if tailscale status | grep "$machine"; then
+    if tailscale status | grep "$machine .* idle"; then
         echo "Connection to $machine is OK"
     else
         echo "Connection to $machine is NOT OK"
