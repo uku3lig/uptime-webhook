@@ -13,7 +13,7 @@ fi
 DOWN=()
 
 for machine in "${MACHINES[@]}"; do
-    if tailscale status | grep "$machine .* idle"; then
+    if tailscale status | grep "$machine\s" | grep -v offline; then
         echo "Connection to $machine is OK"
     else
         echo "Connection to $machine is NOT OK"
